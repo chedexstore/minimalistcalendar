@@ -1,0 +1,394 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+    font-weight: 200;
+}
+
+.container {
+    position: absolute;
+    padding: 40px; /* Increased padding */
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.88);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+/* Example media queries for additional control */
+@media (max-width: 1200px) {
+    .container {
+        width: 85%; /* Increased width */
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        width: 80%; /* Increased width */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        width: 95%;
+        padding: 20px; /* Adjusted padding for smaller screens */
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 15px; /* Increased gap */
+    cursor: pointer;
+    font-weight: 200;
+}
+
+#calendar-header {
+    font-family: 'Raleway', sans-serif;
+    font-size: 36px; /* Increased font size */
+    font-weight: 200;
+    color: #000;
+    text-align: center;
+}
+
+button {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 24px; /* Increased font size */
+    cursor: pointer;
+    padding: 0 12px; /* Increased padding */
+    width: 40px; /* Increased width */
+    height: 40px; /* Increased height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 100;
+}
+
+button:hover {
+    color: #007BFF;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px; /* Increased gap */
+    width: 100%;
+    margin-top: 20px; /* Increased margin-top */
+}
+
+.day-name {
+    width: 60px; /* Increased width */
+    height: 60px; /* Increased height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    font-size: 18px; /* Increased font size */
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px; /* Increased gap */
+    width: 100%;
+    margin-top: 20px; /* Increased margin-top */
+}
+
+.day {
+    width: 60px; /* Increased width */
+    height: 60px; /* Increased height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    position: relative;
+    color: #000;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 18px; /* Increased font size */
+}
+
+.day:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.current-day {
+    color: red;
+    font-weight: 300;
+}
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; 
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Dialog Styles */
+#event-dialog {
+    display: none;
+    flex-direction: column;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute; /* Adjust based on your layout */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+#dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#dialog-date {
+    font-weight: bold;
+}
+
+#dialog-content {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#dialog-event-input {
+    flex: 1;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.enter-button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#dialog-event-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dialog-event-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.dialog-event-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.dialog-delete-event {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+}
+
+
+.close-dialog {
+    display: block;
+    margin-top: 10px;
+    background: none;
+    border: none;
+    color: blue;
+    cursor: pointer;
+}
+
+
+.dialog h2 {
+    margin-top: 0;
+}
+
+#dialog-event-input {
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#dialog-add-event {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #808080;
+    cursor: pointer;
+}
+
+#dialog-add-event:hover {
+    background-color: #d3d3d3;
+}
+
+#dialog-event-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+}
+
+.dialog-event-item {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.dialog-event-item input[type="checkbox"] {
+    margin-right: 15px;
+}
+
+.dialog-event-item span {
+    flex: 1;
+}
+
+.dialog-delete-event {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.event-controls {
+    display: flex;
+    margin-top: 20px; /* Increased margin-top */
+    font-weight: 200;
+}
+
+#event-input {
+    flex: 1;
+    padding: 10px; /* Increased padding */
+    font-size: 18px; /* Increased font size */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-weight: 200;
+}
+
+#add-event {
+    padding: 10px 20px; /* Increased padding */
+    font-size: 18px; /* Increased font size */
+    color: #808080;
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: 200;
+}
+
+#add-event:hover {
+    background-color: #d3d3d3;
+}
+
+#event-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+}
+
+.event-item {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px 20px; /* Increased padding */
+    border-radius: 4px;
+    margin-bottom: 10px; /* Increased margin-bottom */
+    font-size: 16px; /* Increased font size */
+    font-weight: 200;
+}
+
+.event-item input[type="checkbox"] {
+    margin-right: 15px; /* Increased margin-right */
+}
+
+.event-item span {
+    flex: 1;
+}
+
+.delete-event {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 20px; /* Increased font size */
+    cursor: pointer;
+    font-weight: 200;
+}
+
+.delete-event:hover {
+    color: darkred;
+}
+
+.due-event {
+    border-radius: 50%;
+    background-color: yellow;
+    color: black;
+    padding: 10px; /* Increased padding */
+    position: relative;
+    text-align: center;
+}
+
+/* Faster and more visible blinking effect */
+@keyframes blink {
+    0% { opacity: 1; box-shadow: 0 0 20px 15px rgba(255, 255, 0, 0.8); }
+    50% { opacity: 0.8; box-shadow: 0 0 25px 20px rgba(255, 255, 0, 0.5); }
+    100% { opacity: 1; box-shadow: 0 0 20px 15px rgba(255, 255, 0, 0.8); }
+}
+
+.current-day.due-event {
+    animation: blink 0.5s infinite;
+}
